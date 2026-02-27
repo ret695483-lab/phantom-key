@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PHANTOM KEY SYSTEM</title>
+    <style>
+        body { background: #0f0f14; color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .card { background: #18181e; padding: 30px; border-radius: 12px; border: 2px solid #b464ff; text-align: center; width: 300px; box-shadow: 0 0 20px rgba(180, 100, 255, 0.2); }
+        .key { background: #25252e; padding: 15px; border-radius: 8px; font-size: 22px; font-weight: bold; margin: 20px 0; color: #b464ff; border: 1px dashed; }
+        button { background: #b464ff; color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2 style="margin:0">PHANTOM VISION</h2>
+        <p style="opacity:0.6; font-size:14px">Ваш ключ на сегодня:</p>
+        <div class="key" id="k">ГЕНЕРАЦИЯ...</div>
+        <button onclick="copy()">СКОПИРОВАТЬ</button>
+    </div>
+    <script>
+        const salt = "PHANTOM_2026_AUTO"; 
+        const date = new Date().toISOString().slice(0, 10); 
+        let hash = 0;
+        let str = date + salt;
+        for (let i = 0; i < str.length; i++) {
+            hash = (hash * 31 + str.charCodeAt(i)) % 100000;
+        }
+        document.getElementById('k').innerText = "PV-" + hash;
+        function copy() {
+            navigator.clipboard.writeText(document.getElementById('k').innerText);
+            alert("Ключ скопирован!");
+        }
+    </script>
+</body>
+</html>
